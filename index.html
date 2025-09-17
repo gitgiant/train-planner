@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Commute Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Train Commute Planner</h1>
+
+        <div class="schedule-section">
+            <h2>To Work (Southbound)</h2>
+            <p>Carlsbad Village to Sorrento Valley</p>
+            <select id="southbound-trains">
+                <option value="">Select a departure time</option>
+            </select>
+            <div class="results">
+                <div class="result-item">
+                    <span class="label">Departure from home time:</span>
+                    <span id="departure-home-time" class="value">--:--</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Arrival in Sorrento Valley:</span>
+                    <span id="southbound-arrival" class="value">--:--</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Shuttle Arrival at Office:</span>
+                    <span id="shuttle-arrival" class="value">--:--</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="schedule-section">
+            <h2>To Home (Northbound)</h2>
+            <p>Sorrento Valley to Carlsbad Village</p>
+            <select id="northbound-trains">
+                <option value="">Select a departure time</option>
+            </select>
+            <div class="results">
+                <div class="result-item">
+                    <span class="label">Request Shuttle Time:</span>
+                    <span id="request-shuttle-time" class="value">--:--</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Arrival in Carlsbad Village:</span>
+                    <span id="northbound-arrival" class="value">--:--</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Estimated Time Home:</span>
+                    <span id="time-home" class="value">--:--</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-section">
+            <h2>Commute Summary</h2>
+            <div class="results">
+                <div class="result-item">
+                    <span class="label">Office Arrival Time:</span>
+                    <span id="office-arrival-time" class="value">--:--</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Request Shuttle Time:</span>
+                    <span id="request-shuttle-time-summary" class="value">--:--</span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Time in Office:</span>
+                    <span id="time-in-office" class="value">--:--</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
