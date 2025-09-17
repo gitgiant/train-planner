@@ -25,6 +25,11 @@ h1 {
     margin-bottom: 30px;
 }
 
+#datetime-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 h2 {
     color: #005a9c;
     border-bottom: 2px solid #005a9c;

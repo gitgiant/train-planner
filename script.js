@@ -178,4 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     northboundSelect.addEventListener('change', updateNorthboundAndSummaryTimes);
+    function updateDateTime() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options);
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime(); // Initial call
 });
