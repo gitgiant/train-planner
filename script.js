@@ -75,8 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             hours = 0;
         }
 
-        const date = new Date();
-        date.setHours(hours, minutes, 0, 0);
+        const date = new Date(2000, 0, 1, hours, minutes, 0, 0);
         return date;
     }
 
@@ -150,7 +149,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (officeArrivalTimeText !== '--:--') {
                 const officeArrivalDate = parseTime(officeArrivalTimeText);
-                const timeInOfficeMilliseconds = requestShuttleTime - officeArrivalDate;
+                let timeInOfficeMilliseconds = requestShuttleTime - officeArrivalDate;
+
+                // Handle overnight case
+                if (requestShuttleTime < officeArrivalDate) {
+                    timeInOfficeMilliseconds += 24 * 60 * 60 * 1000; // Add a day
+                }
+
                 if (timeInOfficeMilliseconds > 0) {
                     const timeInOfficeHours = Math.floor(timeInOfficeMilliseconds / 3600000);
                     const timeInOfficeMinutes = Math.round((timeInOfficeMilliseconds % 3600000) / 60000);
@@ -178,10 +183,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     northboundSelect.addEventListener('change', updateNorthboundAndSummaryTimes);
+
     function updateDateTime() {
         const now = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
         document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options);
+        updateNextTrains();
+    }
+
+    function updateNextTrains() {
+        const now = new Date();
+        const nowTime = now.getHours() * 60 + now.getMinutes();
+
+        const findNextTrain = (trains) => {
+            for (const train of trains) {
+                const trainTime = parseTime(train.departure);
+                const trainMinutes = trainTime.getHours() * 60 + trainTime.getMinutes();
+                if (trainMinutes > nowTime) {
+                    return train.departure;
+                }
+            }
+            return trains[0].departure; // If no more trains today, show the first one for the next day
+        };
+
+        const nextSouthbound = findNextTrain(southboundTrains);
+        const nextNorthbound = findNextTrain(northboundTrains);
+
+        document.getElementById('next-trains').textContent = 
+            `Next Southbound: ${nextSouthbound} | Next Northbound: ${nextNorthbound}`;
     }
 
     setInterval(updateDateTime, 1000);
